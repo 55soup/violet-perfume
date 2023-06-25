@@ -1,10 +1,36 @@
+{%load static%}
+{#{% extends 'base.html' %}#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>감자브릿또</title>
+    <title>보라빛 향기</title>
 </head>
+<style>
+    html::-webkit-scrollbar{
+        display: none; /* Chrome, Safari, Opera*/
+    }
+    .bar{
+        width: 100%;
+        height: 100px;
+        background: #D0C5F0;
+        box-shadow: 5px 5px 5px 5px #EBEBEB;
+    }
+    .content{
+        margin: 0 auto;
+        text-align: center;
+    }
+</style>
 <body>
-    <p>브릿또가 먹고싶어</p>
+    <div>
+        <img src="{% static  'imgs/violet_perfume_logo.png' %}" alt="보라빛향기">
+    </div>
+    <div class="content">
+        <img src="{% static  'imgs/perfume_90.png' %}" alt="90년">
+        <div class="bar"></div>
+        <img src="{% static  'imgs/perfume_00.png' %}" alt="00년">
+        <img src="{% static  'imgs/perfume_10.png' %}" alt="10년">
+        <div class="bar"></div>
+    </div>
 </body>
 </html>
