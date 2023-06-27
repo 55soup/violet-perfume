@@ -5,6 +5,19 @@
     <title>90년</title>
 </head>
 <body>
-    <p>90년</p>
+    <p>90'</p>
+    <a href="/perfume/add_memory">이동</a>
+    {% for memory in memory_list %}
+        {% if memory.image %}
+            <div>
+                <img src="{{ memory.image.url }}" alt="{{ memory.name }}" />
+            </div>
+        {% else %}
+            <div>사진 없음</div>
+        {% endif %}
+{#        <a href="{% url 'memory:detail' pk=memory.id %}">#}
+{#            <div>{{ memory.name }}</div>#}
+{#        </a>#}
+    {% endfor %}
 </body>
 </html>

@@ -128,3 +128,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #static 파일 모을 폴더
 STATICFILES_DIRS = [ # 프로젝트 전체에 사용할 static 파일이 있는 폴더
     os.path.join(BASE_DIR, 'static')
 ]
+
+#upload_image
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    #사용자가 업로드한 파일을 보관할 폴더
+MEDIA_URL = '/media/' #각 media 파일에 대한 URL_prefix
