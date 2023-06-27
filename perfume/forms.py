@@ -6,7 +6,7 @@ from perfume.models import Memory, Comments
 class MemoryCreationForm(forms.ModelForm):
     class Meta:
         model = Memory
-        fields = ['name', 'description', 'image']
+        fields = ['name', 'description', 'year', 'image']
 
     def save(self, commit=True):
         new_memory = Memory.objects.create(

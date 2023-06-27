@@ -8,6 +8,7 @@ class Memory(models.Model):
     name = models.CharField(max_length=20, default='')
     description = models.CharField(max_length=100, default='')
     created = models.DateTimeField(auto_now_add=True)
+    year = models.CharField(max_length=10, default='year90')
     image = models.ImageField(upload_to='memory_images/%Y/%m/%d/', null=True, blank=True)
 
     class Meta:

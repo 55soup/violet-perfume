@@ -17,10 +17,20 @@ def list_perfume(request):
 # def year_90(request):
 #     return render(request, 'perfume/year90.html')
 
-def list_memory(request):
-    memory_list = Memory.objects.all()
+def list_memory90(request):
+    memory_list = Memory.objects.filter(year__contains="90")
     context = {'memory_list' : memory_list}
     return render(request, 'perfume/year90.html', context)
+
+def list_memory00(request):
+    memory_list = Memory.objects.filter(year__contains="00")
+    context = {'memory_list' : memory_list}
+    return render(request, 'perfume/year00.html', context)
+
+def list_memory10(request):
+    memory_list = Memory.objects.filter(year__contains="10")
+    context = {'memory_list' : memory_list}
+    return render(request, 'perfume/year10.html', context)
 
 def write_memory(request):
     if request.method == 'POST':
