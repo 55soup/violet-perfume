@@ -6,3 +6,7 @@ def list_perfume(request):
     # #product/product_list.html에 보내자
     # return render(request, 'product/product_list.html', context)
     return render(request, 'perfume/index.html')
+
+
+def year_90(request):
+    return render(request, 'perfume/year90.html')
