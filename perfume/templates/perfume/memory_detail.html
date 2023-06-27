@@ -81,6 +81,23 @@
         border-radius: 10px;
         color: white;
         padding: 10px;
+        float: right;
+    }
+    .btn-sub{
+         background: white;
+        width: 150px;
+        height: 60px;
+        border-radius: 10px;
+        border: 2px solid #8A61FF;
+        color: #8A61FF;
+        padding: 10px;
+        font-size: 20px;
+        box-shadow: 2px 2px 2px 2px #EBEBEB;
+        float: right;
+        margin: 10rem 9rem 0 0;
+    }
+    .reply{
+        background: #e3e3e3;
     }
 </style>
 <body>
@@ -107,15 +124,37 @@
         </form>
         {% if list_comments %}
             {% for comment in list_comments %}
-                <div class="box-comment">
-                    <div class="user-comment">{{ comment.user }}</div>
-                    <span>{{ comment.created }}</span>
-                    <div style="clear: both ">{{ comment.comment }}</div>
-                    {% if comment.image %}
-                        <img src="{{ comment.image.url }}"  />
+                    {% if comment.parent_comment %}
+                        <div class="box-comment reply">
+                            <div class="user-comment reply">{{ comment.user }}</div>
+                            <span>{{ comment.created }}</span>
+                            <div style="clear: both ">{{ comment.comment }}</div>
+                            {% if comment.image %}
+                                <img src="{{ comment.image.url }}"  />
+                            {% else %}
+                            {% endif %}
+                        </div>
                     {% else %}
+                        <div class="box-comment">
+                            <div class="user-comment">{{ comment.user }}</div>
+                            <span>{{ comment.created }}</span>
+                            <div style="clear: both ">{{ comment.comment }}</div>
+                            {% if comment.image %}
+                                <img src="{{ comment.image.url }}"  />
+                            {% else %}
+                            {% endif %}
+{#                            <form method="POST" name="{{ comment.id }}">#}
+{#                                {% csrf_token %}#}
+{#                                <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" />#}
+{#                                <br />#}
+{#                                <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="">#}
+{#                                <br />#}
+{#                                <input name="image" type="file" value="">#}
+{#                                <input class="btn-save" type="submit" value="답글달기">#}
+{#                            </form>#}
+                            <input class="btn-sub" type="submit" value="답글달기">
+                        </div>
                     {% endif %}
-                </div>
             {% endfor %}
         {% else %}
             없음

@@ -45,6 +45,7 @@ def detail_memory(request, pk):
         comment.user = request.POST['user']
         comment.comment = request.POST['comment']
         comment.image = request.POST['image']
+        # comment.parent_comment =
         comment.date = timezone.now()
         comment.save()
     context = {

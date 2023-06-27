@@ -28,7 +28,7 @@ class Comments(models.Model):
     created = models.DateTimeField(auto_now_add=True) #생성날짜
     updated = models.DateTimeField(auto_now=True) #수정시 날짜 변경
     heart = models.IntegerField(validators=[MinValueValidator(0)], default=0) #하트 갯수
-    # parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ['-created']
