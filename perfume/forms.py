@@ -12,6 +12,7 @@ class MemoryCreationForm(forms.ModelForm):
         new_memory = Memory.objects.create(
             name = self.cleaned_data.get('name'),
             description = self.cleaned_data.get('description'),
+            year = self.cleaned_data.get('year'),
             image = self.cleaned_data.get('image'),
         )
         return new_memory

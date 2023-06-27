@@ -37,7 +37,7 @@ def write_memory(request):
         form = MemoryCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-        return redirect('perfume:year90')
+        return redirect('/')
     else:
         form = MemoryCreationForm()
     return render(request, 'perfume/memory_create.html', {'form' : form })
@@ -55,8 +55,9 @@ def detail_memory(request, pk):
         comment.user = request.POST['user']
         comment.comment = request.POST['comment']
         comment.image = request.POST['image']
-        # comment.parent_comment =
-        comment.date = timezone.now()
+        parent_id = request.POST['parent_id']
+        comment.comment = Comments.objects.get(pk=parent_id)
+        comment.date = timezone.get_current_timezone()
         comment.save()
     context = {
         'memory' : memory_detail,

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,11 +100,18 @@
     .reply{
         background: #e3e3e3;
     }
+    .wrap-reply{
+        margin-top: 15rem;
+    }
+    .d-none{
+        visibility: hidden;
+    }
 </style>
 <body>
     <div class="banner">
         <div class="black-back"></div>
         <div class="title">{{ memory.name }}</div>
+        <div class="title" style="font-size:3rem; top: 40rem;">{{ memory.description }}</div>
         <img src="{{ memory.image.url }}" alt="{{ memory.name }}" class="img-banner"/>
     </div>
     <div class="comments">
@@ -115,9 +123,9 @@
 {#        </form>#}
         <form method="POST">
             {% csrf_token %}
-            <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" />
+            <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
             <br />
-            <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="">
+            <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
             <br />
             <input name="image" type="file" value="">
             <input class="btn-save" type="submit" value="댓글달기">
@@ -143,16 +151,19 @@
                                 <img src="{{ comment.image.url }}"  />
                             {% else %}
                             {% endif %}
-{#                            <form method="POST" name="{{ comment.id }}">#}
-{#                                {% csrf_token %}#}
-{#                                <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" />#}
-{#                                <br />#}
-{#                                <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="">#}
-{#                                <br />#}
-{#                                <input name="image" type="file" value="">#}
-{#                                <input class="btn-save" type="submit" value="답글달기">#}
-{#                            </form>#}
-                            <input class="btn-sub" type="submit" value="답글달기">
+                            <input class="btn-sub" type="submit" value="답글달기" onclick="reply('{{ comment.pk }}')">
+                            <div class="wrap-reply d-none" id="{{ comment.id }}">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
+                                    <input  maxlength="20" name="parent_id" type="text" value="{{ comment.id }}" class="input-name" required/>
+                                    <br />
+                                    <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
+                                    <br />
+                                    <input name="image" type="file" value="">
+                                    <input class="btn-save" type="submit" value="댓글달기">
+                                </form>
+                            </div>
                         </div>
                     {% endif %}
             {% endfor %}
@@ -161,4 +172,5 @@
         {% endif %}
     </div>
 </body>
+<script src="{% static 'js/script.js' %}"></script>
 </html>

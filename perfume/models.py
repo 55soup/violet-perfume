@@ -31,6 +31,14 @@ class Comments(models.Model):
     heart = models.IntegerField(validators=[MinValueValidator(0)], default=0) #하트 갯수
     parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
+    def children(self):
+        return Comments.objects.filter(parent=self).order_by('-created').all()
+
+    def is_parent(self):
+        if self.parent_comment is None:
+            return True
+        return False
+
     class Meta:
         ordering = ['-created']
 
