@@ -22,11 +22,13 @@ class Memory(models.Model):
 
 class Comments(models.Model):
     memory = models.ForeignKey(Memory, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20, default='') #닉네임
+    user = models.CharField(max_length=20, default='') #닉네임
     comment = models.CharField(max_length=200, default='') #댓글내용
+    image = models.ImageField(upload_to='comment_image/%Y/%m/%d/', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True) #생성날짜
     updated = models.DateTimeField(auto_now=True) #수정시 날짜 변경
-    heart = models.IntegerField(validators=[MinValueValidator(0)]) #하트 갯수
+    heart = models.IntegerField(validators=[MinValueValidator(0)], default=0) #하트 갯수
+    # parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ['-created']

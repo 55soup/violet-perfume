@@ -4,20 +4,65 @@
     <meta charset="UTF-8">
     <title>90년</title>
 </head>
+<style>
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        gap: 200px;
+    }
+    .year-title{
+        font-weight: bold;
+        font-size: 100px;
+        margin: 90px;
+    }
+    .wrap-memory{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+    }
+    img{
+        width: 350px;
+        height: 350px;
+        border-radius: 50rem;
+        object-fit: cover;
+        object-position: center;
+        vertical-align: center;
+    }
+    .img-title{
+        {#position: absolute;#}
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+</style>
 <body>
-    <p>90'</p>
-    <a href="/perfume/add_memory">이동</a>
-    {% for memory in memory_list %}
-        {% if memory.image %}
-            <div>
-                <img src="{{ memory.image.url }}" alt="{{ memory.name }}" />
-            </div>
-        {% else %}
-            <div>사진 없음</div>
-        {% endif %}
-{#        <a href="{% url 'memory:detail' pk=memory.id %}">#}
-{#            <div>{{ memory.name }}</div>#}
-{#        </a>#}
-    {% endfor %}
+    <p class="year-title">90'</p>
+    <a href="/perfume/add_memory">
+        <div>이동</div>
+    </a>
+    <div class="container">
+        {% for memory in memory_list %}
+            {% if memory.image %}
+                <div class="wrap-memory">
+                    <a href="{% url 'perfume:detail_memory' pk=memory.id %}">
+                        <img src="{{ memory.image.url }}" alt="{{ memory.name }}" />
+                        <div class="img-title">
+                            <p>{{ memory.name }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                <div>사진 없음</div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </body>
 </html>

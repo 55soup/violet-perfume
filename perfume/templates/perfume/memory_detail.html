@@ -4,7 +4,122 @@
     <meta charset="UTF-8">
     <title>상세페이지</title>
 </head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    .banner{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .black-back{
+        z-index: 3;
+        width: 100%;
+        height: 1080px;
+        background: black;
+        opacity: 0.8;
+        position: absolute;
+    }
+    .banner .title{
+        z-index: 10;
+        font-size: 100px;
+        font-weight: bold;
+        position: absolute;
+        color: white;
+    }
+    .img-banner{
+        width: 100%;
+        height: 1080px;
+        object-fit: cover;
+    }
+    .comments{
+        margin: 200px 0px;
+        text-align: left;
+    }
+    .box-comment{
+        width: 100%;
+        height: 250px;
+        border: 1px solid #E1E1E1;
+        padding: 50px;
+    }
+    .user-comment{
+        font-size: 20px;
+        font-weight: bold;
+        float: left;
+        margin-right: 20px;
+    }
+    form{
+        background: #F2EEFF;
+        height: 200px;
+        padding: 80px;
+    }
+    form input{
+        border: 0;
+        background: transparent;
+        height: 45px;
+        margin: 20px;
+        outline: none;
+        font-size: 20px;
+        width: 700px;
+    }
+    .input-name{
+        width: 200px;
+        height: 45px;
+        border-radius: 50px;
+        background: #b6b3ff;
+        padding-left: 20px;
+        color: black;
+    }
+    .btn-save{
+        background: #8A61FF;
+        width: 150px;
+        height: 60px;
+        border-radius: 10px;
+        color: white;
+        padding: 10px;
+    }
+</style>
 <body>
-    <div>{{ memory.name }}</div>
+    <div class="banner">
+        <div class="black-back"></div>
+        <div class="title">{{ memory.name }}</div>
+        <img src="{{ memory.image.url }}" alt="{{ memory.name }}" class="img-banner"/>
+    </div>
+    <div class="comments">
+        <p style="margin: 0 0 45px 80px; font-weight: bold; font-size: 40px">댓글 {{ list_comments.count }}</p>
+{#        <form action="POST" action="{% url 'perfume:comment_write' memory.id %}" enctype="multipart/form-data">#}
+{#            {% csrf_token %}#}
+{#            {{ comment_form }}#}
+{#            <input type="submit">#}
+{#        </form>#}
+        <form method="POST">
+            {% csrf_token %}
+            <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" />
+            <br />
+            <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="">
+            <br />
+            <input name="image" type="file" value="">
+            <input class="btn-save" type="submit" value="댓글달기">
+        </form>
+        {% if list_comments %}
+            {% for comment in list_comments %}
+                <div class="box-comment">
+                    <div class="user-comment">{{ comment.user }}</div>
+                    <span>{{ comment.created }}</span>
+                    <div style="clear: both ">{{ comment.comment }}</div>
+                    {% if comment.image %}
+                        <img src="{{ comment.image.url }}"  />
+                    {% else %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            없음
+        {% endif %}
+    </div>
 </body>
 </html>
