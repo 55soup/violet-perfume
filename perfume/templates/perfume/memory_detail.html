@@ -85,7 +85,7 @@
         float: right;
     }
     .btn-sub{
-         background: white;
+        background: white;
         width: 150px;
         height: 60px;
         border-radius: 10px;
@@ -94,17 +94,15 @@
         padding: 10px;
         font-size: 20px;
         box-shadow: 2px 2px 2px 2px #EBEBEB;
-        float: right;
-        margin: 10rem 9rem 0 0;
     }
     .reply{
         background: #e3e3e3;
     }
     .wrap-reply{
-        margin-top: 15rem;
+        {#margin-top: 15rem;#}
     }
     .d-none{
-        visibility: hidden;
+        display: none;
     }
 </style>
 <body>
@@ -137,10 +135,10 @@
                             <div class="user-comment reply">{{ comment.user }}</div>
                             <span>{{ comment.created }}</span>
                             <div style="clear: both ">{{ comment.comment }}</div>
-                            {% if comment.image %}
-                                <img src="{{ comment.image.url }}"  />
-                            {% else %}
-                            {% endif %}
+{#                            {% if comment.image %}#}
+{#                                <img src="{{ comment.image.url }}"  />#}
+{#                            {% else %}#}
+{#                            {% endif %}#}
                         </div>
                     {% else %}
                         <div class="box-comment">
@@ -152,18 +150,19 @@
                             {% else %}
                             {% endif %}
                             <input class="btn-sub" type="submit" value="답글달기" onclick="reply('{{ comment.pk }}')">
-                            <div class="wrap-reply d-none" id="{{ comment.id }}">
-                                <form method="POST">
-                                    {% csrf_token %}
-                                    <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
-                                    <input  maxlength="20" name="parent_id" type="text" value="{{ comment.id }}" class="input-name" required/>
-                                    <br />
-                                    <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
-                                    <br />
-                                    <input name="image" type="file" value="">
-                                    <input class="btn-save" type="submit" value="댓글달기">
-                                </form>
-                            </div>
+                            {#d-none : 보이고 안보이고#}
+                        </div>
+                        <div class="wrap-reply d-none" id="{{ comment.id }}">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
+                                <input  maxlength="20" name="parent_id" type="text" value="{{ comment.id }}" class="input-name" required/>
+                                <br />
+                                <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
+                                <br />
+                                <input name="image" type="file" value="">
+                                <input class="btn-save" type="submit" value="댓글달기">
+                            </form>
                         </div>
                     {% endif %}
             {% endfor %}
