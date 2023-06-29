@@ -97,6 +97,8 @@
     }
     .reply{
         background: #e3e3e3;
+        padding-left: 8rem;
+        border: 1px solid #868686;
     }
     .wrap-reply{
         {#margin-top: 15rem;#}
@@ -162,7 +164,7 @@
                     {% if comment.children %}
                         {% for comment in comment.children %}
                             <div class="box-comment reply">
-                                <div class="user-comment reply">{{ comment.user }}</div>
+                                <div class="user-comment">{{ comment.user }}</div>
                                 <span>{{ comment.created }}</span>
                                 <div style="clear: both ">{{ comment }}</div>
                                     {% if comment.image %}

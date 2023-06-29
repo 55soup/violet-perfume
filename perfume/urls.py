@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 
 from perfume import views
@@ -15,4 +17,5 @@ urlpatterns = [
     path('comment_write/<int:pk>/', views.comment_write, name="comment_write"),
     # path('comment/<int:pk>/', views.write_comments, name='write_comment'),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
