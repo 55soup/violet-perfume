@@ -122,6 +122,7 @@
         <form method="POST">
             {% csrf_token %}
             <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
+            <input  maxlength="20" name="parent_id" type="text" value="-1" class="input-name" style="display: none" required/>
             <br />
             <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
             <br />
@@ -130,16 +131,7 @@
         </form>
         {% if list_comments %}
             {% for comment in list_comments %}
-                    {% if comment.parent_comment %}
-                        <div class="box-comment reply">
-                            <div class="user-comment reply">{{ comment.user }}</div>
-                            <span>{{ comment.created }}</span>
-                            <div style="clear: both ">{{ comment.comment }}</div>
-{#                            {% if comment.image %}#}
-{#                                <img src="{{ comment.image.url }}"  />#}
-{#                            {% else %}#}
-{#                            {% endif %}#}
-                        </div>
+                {% if comment.parent_comment %}
                     {% else %}
                         <div class="box-comment">
                             <div class="user-comment">{{ comment.user }}</div>
@@ -152,22 +144,39 @@
                             <input class="btn-sub" type="submit" value="답글달기" onclick="reply('{{ comment.pk }}')">
                             {#d-none : 보이고 안보이고#}
                         </div>
-                        <div class="wrap-reply d-none" id="{{ comment.id }}">
-                            <form method="POST">
-                                {% csrf_token %}
-                                <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
-                                <input  maxlength="20" name="parent_id" type="text" value="{{ comment.id }}" class="input-name" required/>
-                                <br />
-                                <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
-                                <br />
-                                <input name="image" type="file" value="">
-                                <input class="btn-save" type="submit" value="댓글달기">
-                            </form>
-                        </div>
+                    <!-- 답글 다는 곳 -->
+                    <div class="wrap-reply d-none" id="{{ comment.id }}">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input placeholder="닉네임 입력" maxlength="20" name="user" type="text" value="" class="input-name" required/>
+                            <input  maxlength="20" name="parent_id" type="text" value="{{ comment.id }}" class="input-name" style="display: none" required/>
+                            <br />
+                            <input placeholder="내용 입력" maxlength="200" name="comment" type="text" value="" required>
+                            <br />
+                            <input name="image" type="file" value="">
+                            <input class="btn-save" type="submit" value="댓글달기">
+                        </form>
+                    </div>
+                    <!-- 답글 다는 곳 -->
+                    <!-- 답글 보이는 곳 -->
+                    {% if comment.children %}
+                        {% for comment in comment.children %}
+                            <div class="box-comment reply">
+                                <div class="user-comment reply">{{ comment.user }}</div>
+                                <span>{{ comment.created }}</span>
+                                <div style="clear: both ">{{ comment }}</div>
+                                    {% if comment.image %}
+                                        <img src="{{ comment.image.url }}"  />
+                                    {% else %}
+                                    {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <!-- 답글 보이는 곳 -->
                     {% endif %}
             {% endfor %}
         {% else %}
-            없음
+            댓글 없음
         {% endif %}
     </div>
 </body>

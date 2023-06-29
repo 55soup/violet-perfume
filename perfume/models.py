@@ -32,7 +32,7 @@ class Comments(models.Model):
     parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     def children(self):
-        return Comments.objects.filter(parent=self).order_by('-created').all()
+        return Comments.objects.filter(parent_comment=self).order_by('-created').all()
 
     def is_parent(self):
         if self.parent_comment is None:

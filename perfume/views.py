@@ -55,8 +55,11 @@ def detail_memory(request, pk):
         comment.user = request.POST['user']
         comment.comment = request.POST['comment']
         comment.image = request.POST['image']
-        # parent_id = request.POST['parent_id']
-        # comment.comment = Comments.objects.get(pk=parent_id)
+        parent_id = int(request.POST['parent_id'])
+        if parent_id!=-1: #대댓글 이라면?
+            comment.parent_comment = Comments.objects.get(pk=parent_id)
+        else: #아니라면?
+            pass
         comment.date = timezone.get_current_timezone()
         comment.save()
     context = {
